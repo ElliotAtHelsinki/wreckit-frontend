@@ -17,7 +17,13 @@ export const apollo = new ApolloClient({
             // Concatenate the incoming list items with
             // the existing list items.
             merge: (existing: PostsQuery['posts'] = [], incoming: PostsQuery['posts']) => {
-              return [...existing, ...incoming]
+              const posts: PostsQuery['posts'] = JSON.parse(JSON.stringify(existing))
+              for (let i = 0; i < incoming.length; i++) {
+                if (!posts.includes(incoming[i])) {
+                  posts.push(incoming[i])
+                }
+              }
+              return posts
             },
           }
         }
