@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { PostsQuery } from '@/generated/graphql/graphql'
+import { uniqueIfy } from '@/utils'
 
 // This is the client-side client
 export const apollo = new ApolloClient({
@@ -17,20 +18,12 @@ export const apollo = new ApolloClient({
             // Concatenate the incoming list items with
             // the existing list items.
             merge: (existing: PostsQuery['posts'] = [], incoming: PostsQuery['posts']) => {
-              const posts: PostsQuery['posts'] = JSON.parse(JSON.stringify(existing))
-              let ids = posts.map(p => p.id)
-              for (let i = 0; i < incoming.length; i++) {
-                if (!ids.includes(incoming[i].id)) {
-                  posts.push(incoming[i])
-                  ids.push(incoming[i].id)
-                }
-              }
-              return posts
+              return uniqueIfy([...existing, ...incoming])
             },
           }
         }
       }
-    } 
+    }
   }),
   uri: process.env.NEXT_PUBLIC_BACKEND_URI
 })
