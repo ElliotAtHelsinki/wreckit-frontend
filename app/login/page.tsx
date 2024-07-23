@@ -7,9 +7,10 @@ import { Link } from '@chakra-ui/next-js'
 import { Box, Button } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 
-const LoginPage: React.FC = () => {
+const Page: React.FC = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { refetch } = useQuery(MeDocument)
@@ -56,4 +57,13 @@ const LoginPage: React.FC = () => {
     </Wrapper>
   )
 }
+
+const LoginPage = () => {
+  return (
+    <Suspense>
+      <Page />
+    </Suspense>
+  )
+}
+
 export default LoginPage
