@@ -1,0 +1,5 @@
+query Posts($limit: Int, $cursor: Timestamp) {
+  posts(limit: $limit, cursor: $cursor) {
+    ...RegularPost
+  }
+}

@@ -1,0 +1,5 @@
+mutation Downvote($postID: Int!) {
+  downvote(postID: $postID) {
+    ...RegularPost
+  }
+}
