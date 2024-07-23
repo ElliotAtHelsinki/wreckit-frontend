@@ -1,3 +1,4 @@
+'use server'
 import { SESSION_COOKIE_NAME } from '@/constants'
 import { from, HttpLink } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
