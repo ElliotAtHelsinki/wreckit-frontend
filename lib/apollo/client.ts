@@ -1,6 +1,5 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { PostsQuery } from '@/generated/graphql/graphql'
 import { uniqueIfy } from '@/utils'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 // This is the client-side client
 export const apollo = new ApolloClient({
@@ -17,8 +16,16 @@ export const apollo = new ApolloClient({
 
             // Concatenate the incoming list items with
             // the existing list items.
-            merge: (existing: PostsQuery['posts'] = [], incoming: PostsQuery['posts']) => {
-              return uniqueIfy([...existing, ...incoming])
+            merge: (existing: { __ref: string }[] = [], incoming: { __ref: string }[]) => {
+              const cacheItems: typeof existing = JSON.parse(JSON.stringify(existing))
+              const refs = existing.map(e => e.__ref)
+              for (let i = 0;i < incoming.length;i++) {
+                if (!refs.includes(incoming[i].__ref)) {
+                  cacheItems.push(incoming[i])
+                  refs.push(incoming[i].__ref)
+                }
+              }
+              return cacheItems
             },
           }
         }
