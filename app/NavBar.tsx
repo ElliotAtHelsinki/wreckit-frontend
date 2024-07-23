@@ -1,5 +1,5 @@
 'use client'
-import { LogoutDocument, MeDocument } from '@/generated/graphql/graphql'
+import { LogoutDocument, MeDocument, PostsDocument } from '@/generated/graphql/graphql'
 import { useMutation, useQuery } from '@apollo/client'
 import { Link } from '@chakra-ui/next-js'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 const NavBar: React.FC = () => {
   const { data, loading, refetch } = useQuery(MeDocument)
+  const { refetch: refetchPosts } = useQuery(PostsDocument)
   const [logout] = useMutation(LogoutDocument)
   const router = useRouter()
   const pathname = usePathname()
@@ -42,6 +43,7 @@ const NavBar: React.FC = () => {
               onClick={async () => {
                 await logout()
                 await refetch() // Calling refetch will also refetch the data for any other components using useQuery(MeDocument)
+                await refetchPosts()
                 if (pathname == '/') {
                   router.refresh()
                 }

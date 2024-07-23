@@ -14,19 +14,19 @@ export const Post: React.FC<Props> = ({ post: p }) => {
   const { data } = useQuery(MeDocument)
   const router = useRouter()
   const { refetch } = useQuery(PostDocument)
-  const [upvote] = useMutation(UpvoteDocument)
-  const [downvote] = useMutation(DownvoteDocument)
-  const [removeUpvote] = useMutation(RemoveUpvoteDocument)
-  const [removeDownvote] = useMutation(RemoveDownvoteDocument)
-  const [deletePost] = useMutation(DeletePostDocument)
+  const [upvote, { loading: upvoting }] = useMutation(UpvoteDocument)
+  const [downvote, { loading: downvoting }] = useMutation(DownvoteDocument)
+  const [removeUpvote, { loading: removingUpvote }] = useMutation(RemoveUpvoteDocument)
+  const [removeDownvote, { loading: removingDownvote }] = useMutation(RemoveDownvoteDocument)
+  const [deletePost, { loading: deletingPost }] = useMutation(DeletePostDocument)
 
-  return (
-    <Flex key={p.id} p={5} borderWidth='1px'>
+  return ( <Flex key={p.id} p={5} borderWidth='1px'>
       <Flex flexDir='column' mr='4' justifyContent='space-between' alignItems='center'>
         <IconButton
           aria-label='upvote-button'
           icon={<ArrowUpIcon />}
           color={p.upvoted ? 'green' : ''}
+          isLoading={upvoting || removingUpvote }
           onClick={async () => {
             if (!data?.me) {
               router.push('/login')
@@ -47,6 +47,7 @@ export const Post: React.FC<Props> = ({ post: p }) => {
           aria-label='downvote-button'
           icon={<ArrowDownIcon />}
           color={p.downvoted ? 'red' : ''}
+          isLoading={downvoting || removingDownvote}
           onClick={async () => {
             if (!data?.me) {
               router.push('/login')
@@ -82,6 +83,7 @@ export const Post: React.FC<Props> = ({ post: p }) => {
             aria-label='delete-button'
             icon={<DeleteIcon />}
             colorScheme='red'
+            isLoading={deletingPost}
             onClick={async () => {
               await deletePost({
                 variables: { id: p.id },
