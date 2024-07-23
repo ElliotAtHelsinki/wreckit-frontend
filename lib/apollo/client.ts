@@ -18,9 +18,11 @@ export const apollo = new ApolloClient({
             // the existing list items.
             merge: (existing: PostsQuery['posts'] = [], incoming: PostsQuery['posts']) => {
               const posts: PostsQuery['posts'] = JSON.parse(JSON.stringify(existing))
+              let ids = posts.map(p => p.id)
               for (let i = 0; i < incoming.length; i++) {
-                if (!posts.includes(incoming[i])) {
+                if (!ids.includes(incoming[i].id)) {
                   posts.push(incoming[i])
+                  ids.push(incoming[i].id)
                 }
               }
               return posts
