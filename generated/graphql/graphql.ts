@@ -189,7 +189,7 @@ export type Post = {
 
 export type PostInput = {
   content: Scalars['String']['input'];
-  title?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 export type PostListRelationFilter = {

@@ -28,7 +28,7 @@ const EditPostPage: React.FC<Props> = ({ params: { id } }) => {
   return (
     <Wrapper variant='small'>
       <Formik
-        initialValues={{ title: data?.post?.title, content: data?.post?.content } as PostInput}
+        initialValues={{ title: data?.post?.title || '', content: data?.post?.content || '' } as PostInput}
         onSubmit={async ({ title, content }, { setErrors }) => {
           const response = await updatePost({ variables: { id: parseInt(id), title, content } })
           const errors = response.data?.updatePost.errors
