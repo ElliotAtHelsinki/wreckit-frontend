@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic'
 const ResetPasswordPage: React.FC<Props> = async ({ params: { token } }) => {
   const cookieStore = cookies()
   const cookie = cookieStore.get(SESSION_COOKIE_NAME)?.value
-  const apollo = createApolloClient(cookie)
+  const apollo = await createApolloClient(cookie)
   const { data, loading } = await apollo.query({ query: CheckResetPasswordTokenDocument, variables: { token } })
 
   if (loading) {
