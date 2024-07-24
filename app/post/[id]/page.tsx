@@ -15,7 +15,7 @@ interface Props {
 const PostPage: React.FC<Props> = async ({ params: { id } }) => {
   const cookieStore = cookies()
   const cookie = cookieStore.get(SESSION_COOKIE_NAME)?.value
-  const apollo = createApolloClient(cookie)
+  const apollo = await createApolloClient(cookie)
   const { data } = await apollo.query({ query: PostDocument, variables: { id: parseInt(id) } })
   const { data: meData } = await apollo.query({ query: MeDocument })
 

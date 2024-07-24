@@ -1,6 +1,6 @@
 'use server'
 import { SESSION_COOKIE_NAME } from '@/constants'
-import { from, HttpLink } from '@apollo/client'
+import { from, HttpLink, NormalizedCacheObject } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { ApolloClient, InMemoryCache, registerApolloClient } from '@apollo/experimental-nextjs-app-support'
 
@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 
 // This is the server-side client
-export const createApolloClient = (cookie?: string) => registerApolloClient(() => {
+export const createApolloClient = async (cookie?: string) => registerApolloClient<ApolloClient<NormalizedCacheObject>>(() => {
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_BACKEND_URI,
     credentials: 'include',
