@@ -1,4 +1,3 @@
-import { uniqueIfy } from '@/utils'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 // This is the client-side client
