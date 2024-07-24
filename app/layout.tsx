@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'WreckIt'
 }
 
-export const runtime = 'edge' 
+export const runtime = process.env.NODE_ENV == 'production' ? 'edge' : 'nodejs'
 
 const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode }>) => {
   return (
