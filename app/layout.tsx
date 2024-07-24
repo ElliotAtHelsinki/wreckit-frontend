@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: 'WreckIt'
 }
 
+export const runtime = 'edge' 
+
 const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang='en'>

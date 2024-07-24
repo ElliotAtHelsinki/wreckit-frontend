@@ -28,7 +28,7 @@ const documents = {
     "mutation RemoveDownvote($postID: Int!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveDownvoteDocument,
     "mutation RemoveUpvote($postID: Int!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveUpvoteDocument,
     "mutation ResetPassword($newPassword: String!, $token: String!) {\n  resetPassword(newPassword: $newPassword, token: $token) {\n    errors {\n      ...RegularError\n    }\n    message\n    messageType\n  }\n}": types.ResetPasswordDocument,
-    "mutation UpdatePost($id: Int!, $title: String, $content: String) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}": types.UpdatePostDocument,
+    "mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}": types.UpdatePostDocument,
     "mutation Upvote($postID: Int!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.UpvoteDocument,
     "query CheckResetPasswordToken($token: String!) {\n  checkResetPasswordToken(token: $token)\n}": types.CheckResetPasswordTokenDocument,
     "query Me {\n  me {\n    ...RegularUser\n  }\n}": types.MeDocument,
@@ -113,7 +113,7 @@ export function graphql(source: "mutation ResetPassword($newPassword: String!, $
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation UpdatePost($id: Int!, $title: String, $content: String) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"): (typeof documents)["mutation UpdatePost($id: Int!, $title: String, $content: String) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"];
+export function graphql(source: "mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"): (typeof documents)["mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
