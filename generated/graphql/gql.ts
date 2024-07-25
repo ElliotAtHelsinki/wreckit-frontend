@@ -16,23 +16,23 @@ const documents = {
     "fragment RegularError on FieldError {\n  field\n  message\n}": types.RegularErrorFragmentDoc,
     "fragment RegularPost on Post {\n  id\n  authorID\n  title\n  content\n  createdAt\n  updatedAt\n  snippet\n  points\n  upvoted\n  downvoted\n  author {\n    ...RegularUser\n  }\n}": types.RegularPostFragmentDoc,
     "fragment RegularPostResponse on PostResponse {\n  errors {\n    ...RegularError\n  }\n  post {\n    ...RegularPost\n  }\n}": types.RegularPostResponseFragmentDoc,
-    "fragment RegularUser on User {\n  id\n  email\n  username\n  createdAt\n  updatedAt\n}": types.RegularUserFragmentDoc,
+    "fragment RegularUser on User {\n  id\n  email\n  username\n  password\n  createdAt\n  updatedAt\n}": types.RegularUserFragmentDoc,
     "fragment RegularUserResponse on UserResponse {\n  errors {\n    ...RegularError\n  }\n  user {\n    ...RegularUser\n  }\n}": types.RegularUserResponseFragmentDoc,
     "mutation CreatePost($input: PostInput!) {\n  createPost(input: $input) {\n    ...RegularPostResponse\n  }\n}": types.CreatePostDocument,
-    "mutation DeletePost($id: Int!) {\n  deletePost(id: $id)\n}": types.DeletePostDocument,
-    "mutation Downvote($postID: Int!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.DownvoteDocument,
+    "mutation DeletePost($id: String!) {\n  deletePost(id: $id)\n}": types.DeletePostDocument,
+    "mutation Downvote($postID: String!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.DownvoteDocument,
     "mutation ForgotPassword($email: String!) {\n  forgotPassword(email: $email) {\n    errors {\n      ...RegularError\n    }\n    message\n    messageType\n  }\n}": types.ForgotPasswordDocument,
     "mutation Login($input: UsernamePasswordInput!) {\n  login(input: $input) {\n    ...RegularUserResponse\n  }\n}": types.LoginDocument,
     "mutation Logout {\n  logout\n}": types.LogoutDocument,
     "mutation Register($input: UsernamePasswordInput!) {\n  register(input: $input) {\n    ...RegularUserResponse\n  }\n}": types.RegisterDocument,
-    "mutation RemoveDownvote($postID: Int!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveDownvoteDocument,
-    "mutation RemoveUpvote($postID: Int!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveUpvoteDocument,
+    "mutation RemoveDownvote($postID: String!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveDownvoteDocument,
+    "mutation RemoveUpvote($postID: String!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.RemoveUpvoteDocument,
     "mutation ResetPassword($newPassword: String!, $token: String!) {\n  resetPassword(newPassword: $newPassword, token: $token) {\n    errors {\n      ...RegularError\n    }\n    message\n    messageType\n  }\n}": types.ResetPasswordDocument,
-    "mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}": types.UpdatePostDocument,
-    "mutation Upvote($postID: Int!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.UpvoteDocument,
+    "mutation UpdatePost($id: String!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}": types.UpdatePostDocument,
+    "mutation Upvote($postID: String!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}": types.UpvoteDocument,
     "query CheckResetPasswordToken($token: String!) {\n  checkResetPasswordToken(token: $token)\n}": types.CheckResetPasswordTokenDocument,
     "query Me {\n  me {\n    ...RegularUser\n  }\n}": types.MeDocument,
-    "query Post($id: Int!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}": types.PostDocument,
+    "query Post($id: String!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}": types.PostDocument,
     "query Posts($limit: Int, $cursor: Timestamp) {\n  posts(limit: $limit, cursor: $cursor) {\n    ...RegularPost\n  }\n}": types.PostsDocument,
 };
 
@@ -65,7 +65,7 @@ export function graphql(source: "fragment RegularPostResponse on PostResponse {\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment RegularUser on User {\n  id\n  email\n  username\n  createdAt\n  updatedAt\n}"): (typeof documents)["fragment RegularUser on User {\n  id\n  email\n  username\n  createdAt\n  updatedAt\n}"];
+export function graphql(source: "fragment RegularUser on User {\n  id\n  email\n  username\n  password\n  createdAt\n  updatedAt\n}"): (typeof documents)["fragment RegularUser on User {\n  id\n  email\n  username\n  password\n  createdAt\n  updatedAt\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -77,11 +77,11 @@ export function graphql(source: "mutation CreatePost($input: PostInput!) {\n  cr
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation DeletePost($id: Int!) {\n  deletePost(id: $id)\n}"): (typeof documents)["mutation DeletePost($id: Int!) {\n  deletePost(id: $id)\n}"];
+export function graphql(source: "mutation DeletePost($id: String!) {\n  deletePost(id: $id)\n}"): (typeof documents)["mutation DeletePost($id: String!) {\n  deletePost(id: $id)\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation Downvote($postID: Int!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation Downvote($postID: Int!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
+export function graphql(source: "mutation Downvote($postID: String!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation Downvote($postID: String!) {\n  downvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -101,11 +101,11 @@ export function graphql(source: "mutation Register($input: UsernamePasswordInput
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation RemoveDownvote($postID: Int!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation RemoveDownvote($postID: Int!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
+export function graphql(source: "mutation RemoveDownvote($postID: String!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation RemoveDownvote($postID: String!) {\n  removeDownvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation RemoveUpvote($postID: Int!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation RemoveUpvote($postID: Int!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
+export function graphql(source: "mutation RemoveUpvote($postID: String!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation RemoveUpvote($postID: String!) {\n  removeUpvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -113,11 +113,11 @@ export function graphql(source: "mutation ResetPassword($newPassword: String!, $
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"): (typeof documents)["mutation UpdatePost($id: Int!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"];
+export function graphql(source: "mutation UpdatePost($id: String!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"): (typeof documents)["mutation UpdatePost($id: String!, $title: String!, $content: String!) {\n  updatePost(id: $id, title: $title, content: $content) {\n    errors {\n      ...RegularError\n    }\n    post {\n      ...RegularPost\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation Upvote($postID: Int!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation Upvote($postID: Int!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
+export function graphql(source: "mutation Upvote($postID: String!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}"): (typeof documents)["mutation Upvote($postID: String!) {\n  upvote(postID: $postID) {\n    ...RegularPost\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -129,7 +129,7 @@ export function graphql(source: "query Me {\n  me {\n    ...RegularUser\n  }\n}"
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Post($id: Int!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}"): (typeof documents)["query Post($id: Int!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}"];
+export function graphql(source: "query Post($id: String!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}"): (typeof documents)["query Post($id: String!) {\n  post(id: $id) {\n    ...RegularPost\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

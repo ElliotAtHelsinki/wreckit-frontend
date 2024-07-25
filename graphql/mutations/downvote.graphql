@@ -1,4 +1,4 @@
-mutation Downvote($postID: Int!) {
+mutation Downvote($postID: String!) {
   downvote(postID: $postID) {
     ...RegularPost
   }

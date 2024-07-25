@@ -17,7 +17,7 @@ interface Props {
 
 const EditPostPage: React.FC<Props> = ({ params: { id } }) => {
   useAuthenticate()
-  const { data, loading, refetch } = useQuery(PostDocument, { variables: { id: parseInt(id) } })
+  const { data, loading, refetch } = useQuery(PostDocument, { variables: { id } })
   const [updatePost] = useMutation(UpdatePostDocument)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
@@ -30,7 +30,7 @@ const EditPostPage: React.FC<Props> = ({ params: { id } }) => {
       <Formik
         initialValues={{ title: data?.post?.title || '', content: data?.post?.content || '' } as PostInput}
         onSubmit={async ({ title, content }, { setErrors }) => {
-          const response = await updatePost({ variables: { id: parseInt(id), title, content } })
+          const response = await updatePost({ variables: { id, title, content } })
           const errors = response.data?.updatePost.errors
           if (errors) {
             setErrors(errorMapper(errors))

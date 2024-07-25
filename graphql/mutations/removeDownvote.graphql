@@ -1,4 +1,4 @@
-mutation RemoveDownvote($postID: Int!) {
+mutation RemoveDownvote($postID: String!) {
   removeDownvote(postID: $postID) {
     ...RegularPost
   }

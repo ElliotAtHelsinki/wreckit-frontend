@@ -1,4 +1,4 @@
-mutation RemoveUpvote($postID: Int!) {
+mutation RemoveUpvote($postID: String!) {
   removeUpvote(postID: $postID) {
     ...RegularPost
   }
